@@ -1,0 +1,54 @@
+-- 브롤스타즈 서버 터트리기 V2.0
+-- 패킷 플러딩 + 메모리 과부하 콤보 ㄷㄷ
+
+function init()
+    gg.setVisible(false)
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS)
+end
+
+function serverFlood()
+    -- 서버 메모리 타겟팅
+    gg.searchNumber("7.0", gg.TYPE_FLOAT)
+    local count = gg.getResultCount()
+    local results = gg.getResults(count)
+    
+    -- 패킷 과부하 루프
+    for i = 1, 99999 do
+        for k, v in ipairs(results) do
+            -- 메모리값 변조
+            v.value = "999999999"
+            v.freeze = true
+        end
+        gg.addListItems(results)
+        
+        -- 서버 요청 플러딩
+        for j = 1, 1000 do
+            gg.loadResults(results)
+        end
+    end
+end
+
+function memoryOverflow()
+    -- 게임 메모리 타겟팅
+    gg.searchNumber("1", gg.TYPE_DWORD)
+    local results = gg.getResults(50000)
+    
+    -- 메모리 덤프 생성
+    for i = 1, #results do
+        results[i].value = "2147483647"
+    end
+    gg.setValues(results)
+end
+
+-- 메인 실행
+function main()
+    init()
+    print("ㅋㅋㅋ 서버 터트리기 시작함 ㄷㄷ")
+    serverFlood()
+    memoryOverflow()
+    print("서버 박살났다 ㅇㅇ")
+end
+
+-- 실행
+main()
