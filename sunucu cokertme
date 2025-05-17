@@ -1,0 +1,10 @@
+local rs = game:GetService("ReplicatedStorage")
+local event = rs.DefaultChatSystemChatEvents.SayMessageRequest
+local chars = {"󠀠","⠀","　","͏","឵","⁤","⁣","⁢","⁡","⁠",""}
+while wait() do
+    for _,v in pairs(chars) do
+        event:FireServer(string.rep(v.."\n\n\n", 150), "All")
+        event:FireServer(string.rep(v, 500), "All")
+    end
+    event:FireServer(string.rep("󠀠\n　", 250), "All")
+end
