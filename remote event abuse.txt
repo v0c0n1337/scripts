@@ -1,326 +1,369 @@
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local RemoteList = Instance.new("ScrollingFrame")
-local UIListLayout = Instance.new("UIListLayout")
-local RefreshButton = Instance.new("TextButton")
-local NotificationFrame = Instance.new("Frame")
-local NotificationText = Instance.new("TextLabel")
+-- Toggle GUI
+local ToggleGui = Instance.new("ScreenGui")
+ToggleGui.Name = "RemoteExploitToggle"
+ToggleGui.Parent = game:GetService("CoreGui")
 
--- Notification System
-NotificationFrame.Name = "NotificationFrame"
-NotificationFrame.Parent = ScreenGui
-NotificationFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-NotificationFrame.Position = UDim2.new(0.7, 0, 0.8, 0)
-NotificationFrame.Size = UDim2.new(0.25, 0, 0.1, 0)
-NotificationFrame.Visible = false
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Parent = ToggleGui
+ToggleButton.Position = UDim2.new(0.95, 0, 0.05, 0)
+ToggleButton.Size = UDim2.new(0, 100, 0, 30)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ToggleButton.Text = "Open Exploit"
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.TextSize = 14
+ToggleButton.Font = Enum.Font.SourceSansBold
 
-NotificationText.Name = "NotificationText"
-NotificationText.Parent = NotificationFrame
-NotificationText.BackgroundTransparency = 1
-NotificationText.Position = UDim2.new(0, 5, 0, 5)
-NotificationText.Size = UDim2.new(1, -10, 1, -10)
-NotificationText.Font = Enum.Font.SourceSans
-NotificationText.TextColor3 = Color3.fromRGB(255, 255, 255)
-NotificationText.TextSize = 14
-NotificationText.TextWrapped = true
+-- Main GUI setup
+local function createMainGui()
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "RemoteExploitGUI"
+    ScreenGui.Parent = game:GetService("CoreGui")
 
--- Main GUI Setup
-ScreenGui.Parent = game:GetService("CoreGui")
-ScreenGui.Name = "RemoteExploitGUI"
+    local MainFrame = Instance.new("Frame")
+    MainFrame.Name = "MainFrame"
+    MainFrame.Parent = ScreenGui
+    MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    MainFrame.Position = UDim2.new(0.2, 0, 0.2, 0)
+    MainFrame.Size = UDim2.new(0.6, 0, 0.6, 0)
+    MainFrame.Active = true
+    MainFrame.Draggable = true
 
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-MainFrame.Position = UDim2.new(0.2, 0, 0.2, 0)
-MainFrame.Size = UDim2.new(0.6, 0, 0.6, 0)
-MainFrame.Active = true
-MainFrame.Draggable = true
+    local Title = Instance.new("TextLabel")
+    Title.Name = "Title"
+    Title.Parent = MainFrame
+    Title.BackgroundTransparency = 1
+    Title.Position = UDim2.new(0, 10, 0, 5)
+    Title.Size = UDim2.new(0.8, 0, 0, 30)
+    Title.Font = Enum.Font.SourceSansBold
+    Title.Text = "Advanced Remote Exploit Panel v3.0"
+    Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+    Title.TextSize = 24
+    Title.TextXAlignment = Enum.TextXAlignment.Left
 
-Title.Name = "Title"
-Title.Parent = MainFrame
-Title.BackgroundTransparency = 1
-Title.Position = UDim2.new(0, 10, 0, 5)
-Title.Size = UDim2.new(0.8, 0, 0, 30)
-Title.Font = Enum.Font.SourceSansBold
-Title.Text = "Advanced Remote Exploit Panel v3.0"
-Title.TextColor3 = Color3.fromRGB(255, 0, 0)
-Title.TextSize = 24
-Title.TextXAlignment = Enum.TextXAlignment.Left
+    local RemoteList = Instance.new("ScrollingFrame")
+    RemoteList.Name = "RemoteList"
+    RemoteList.Parent = MainFrame
+    RemoteList.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    RemoteList.Position = UDim2.new(0, 10, 0, 45)
+    RemoteList.Size = UDim2.new(1, -20, 1, -55)
+    RemoteList.CanvasSize = UDim2.new(0, 0, 0, 0)
+    RemoteList.ScrollBarThickness = 8
 
-RemoteList.Name = "RemoteList"
-RemoteList.Parent = MainFrame
-RemoteList.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-RemoteList.Position = UDim2.new(0, 10, 0, 45)
-RemoteList.Size = UDim2.new(1, -20, 1, -55)
-RemoteList.CanvasSize = UDim2.new(0, 0, 0, 0)
-RemoteList.ScrollBarThickness = 8
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.Parent = RemoteList
+    UIListLayout.SortOrder = Enum.SortOrder.Name
+    UIListLayout.Padding = UDim.new(0, 5)
 
-UIListLayout.Parent = RemoteList
-UIListLayout.SortOrder = Enum.SortOrder.Name
-UIListLayout.Padding = UDim.new(0, 5)
+    local RefreshButton = Instance.new("TextButton")
+    RefreshButton.Name = "RefreshButton"
+    RefreshButton.Parent = MainFrame
+    RefreshButton.Position = UDim2.new(0.85, 0, 0.02, 0)
+    RefreshButton.Size = UDim2.new(0.13, 0, 0, 25)
+    RefreshButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    RefreshButton.Text = "Refresh"
+    RefreshButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    RefreshButton.TextSize = 14
 
--- Notification Function
-local function showNotification(text, duration)
-    NotificationFrame.Visible = true
-    NotificationText.Text = text
-    wait(duration or 3)
+    local CloseButton = Instance.new("TextButton")
+    CloseButton.Name = "CloseButton"
+    CloseButton.Parent = MainFrame
+    CloseButton.Position = UDim2.new(0.95, 0, 0, 0)
+    CloseButton.Size = UDim2.new(0.05, 0, 0, 20)
+    CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    CloseButton.Text = "X"
+    CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CloseButton.TextSize = 14
+
+    local NotificationFrame = Instance.new("Frame")
+    NotificationFrame.Name = "NotificationFrame"
+    NotificationFrame.Parent = ScreenGui
+    NotificationFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    NotificationFrame.Position = UDim2.new(0.7, 0, 0.8, 0)
+    NotificationFrame.Size = UDim2.new(0.25, 0, 0.1, 0)
     NotificationFrame.Visible = false
-end
 
--- Enhanced Remote Scanning with Vulnerability Detection
-local function scanRemotes()
-    local remotes = {}
-    local vulnerabilities = {}
-    
-    for _, v in pairs(game:GetDescendants()) do
-        if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
-            local isVulnerable = false
-            local vulnReason = ""
-            
-            -- Check for common vulnerable patterns
-            local vulnerablePatterns = {
-                "admin", "give", "weapon", "money", "coin", "teleport",
-                "damage", "kill", "ban", "kick", "team", "power",
-                "god", "heal", "health", "speed", "jump", "fly"
-            }
-            
-            for _, pattern in ipairs(vulnerablePatterns) do
-                if v.Name:lower():match(pattern) then
+    local NotificationText = Instance.new("TextLabel")
+    NotificationText.Name = "NotificationText"
+    NotificationText.Parent = NotificationFrame
+    NotificationText.BackgroundTransparency = 1
+    NotificationText.Position = UDim2.new(0, 5, 0, 5)
+    NotificationText.Size = UDim2.new(1, -10, 1, -10)
+    NotificationText.Font = Enum.Font.SourceSans
+    NotificationText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    NotificationText.TextSize = 14
+    NotificationText.TextWrapped = true
+
+    -- Notification Function
+    local function showNotification(text, duration)
+        NotificationFrame.Visible = true
+        NotificationText.Text = text
+        task.delay(duration or 3, function()
+            NotificationFrame.Visible = false
+        end)
+    end
+
+    -- Enhanced Remote Scanning with Vulnerability Detection
+    local function scanRemotes()
+        local remotes = {}
+        local vulnerabilities = {}
+        
+        for _, v in pairs(game:GetDescendants()) do
+            if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
+                local isVulnerable = false
+                local vulnReason = ""
+                
+                -- Check for common vulnerable patterns
+                local vulnerablePatterns = {
+                    "admin", "give", "weapon", "money", "coin", "teleport",
+                    "damage", "kill", "ban", "kick", "team", "power",
+                    "god", "heal", "health", "speed", "jump", "fly"
+                }
+                
+                for _, pattern in ipairs(vulnerablePatterns) do
+                    if v.Name:lower():match(pattern) then
+                        isVulnerable = true
+                        vulnReason = "Potential vulnerable name pattern: " .. pattern
+                        break
+                    end
+                end
+                
+                -- Check ReplicatedStorage location
+                if v:IsDescendantOf(game:GetService("ReplicatedStorage")) then
                     isVulnerable = true
-                    vulnReason = "Potential vulnerable name pattern: " .. pattern
-                    break
+                    vulnReason = vulnReason .. "\nLocated in ReplicatedStorage"
                 end
-            end
-            
-            -- Check ReplicatedStorage location
-            if v:IsDescendantOf(game:GetService("ReplicatedStorage")) then
-                isVulnerable = true
-                vulnReason = vulnReason .. "\nLocated in ReplicatedStorage"
-            end
-            
-            table.insert(remotes, {
-                instance = v,
-                path = v:GetFullName(),
-                type = v.ClassName,
-                vulnerable = isVulnerable,
-                vulnReason = vulnReason
-            })
-            
-            if isVulnerable then
-                table.insert(vulnerabilities, {
-                    remote = v,
-                    reason = vulnReason
+                
+                table.insert(remotes, {
+                    instance = v,
+                    path = v:GetFullName(),
+                    type = v.ClassName,
+                    vulnerable = isVulnerable,
+                    vulnReason = vulnReason
                 })
-            end
-        end
-    end
-    
-    if #vulnerabilities > 0 then
-        showNotification("Found " .. #vulnerabilities .. " potentially vulnerable remotes!", 5)
-    end
-    
-    return remotes
-end
-
--- Advanced Exploit Testing Function
-local function attemptExploit(remote)
-    local testValues = {
-        -- Basic Values
-        nil, false, true, 0, 1, -1, math.huge, -math.huge,
-        
-        -- Strings
-        "test", "' OR '1'='1", "; DROP TABLE Users--", "../../etc/passwd",
-        
-        -- Tables
-        {}, {1, 2, 3}, {["key"] = "value"},
-        
-        -- Game Objects
-        game.Players.LocalPlayer,
-        game.Players.LocalPlayer.Character,
-        workspace, game,
-        
-        -- Functions and Instances
-        function() end,
-        Instance.new("Part"),
-        
-        -- Special Values
-        Vector3.new(0, 0, 0),
-        CFrame.new(0, 0, 0),
-        
-        -- SQL Injection Attempts
-        "1' OR '1'='1",
-        "1; DROP TABLE Players--",
-        
-        -- Command Injection
-        "|ls",
-        "; rm -rf /",
-        
-        -- Buffer Overflow Test
-        string.rep("A", 10000),
-        
-        -- Special Characters
-        "\0", "\n", "\r", "\t", "\b", "\\",
-        
-        -- JSON Injection
-        '{"__proto__": {"admin": true}}',
-        
-        -- Remote Specific
-        {FireServer = true},
-        {InvokeServer = true}
-    }
-
-    for _, value in ipairs(testValues) do
-        pcall(function()
-            if remote.type == "RemoteEvent" then
-                remote.instance:FireServer(value)
-            elseif remote.type == "RemoteFunction" then
-                -- Try both FireServer and InvokeServer
-                pcall(function() remote.instance:FireServer(value) end)
-                pcall(function() remote.instance:InvokeServer(value) end)
-            end
-        end)
-        wait(0.1)
-    end
-end
-
--- GUI Update Function
-local function updateGUI()
-    for _, child in pairs(RemoteList:GetChildren()) do
-        if child:IsA("Frame") then
-            child:Destroy()
-        end
-    end
-
-    local remotes = scanRemotes()
-    for _, remote in pairs(remotes) do
-        local RemoteFrame = Instance.new("Frame")
-        RemoteFrame.Name = remote.instance.Name
-        RemoteFrame.Parent = RemoteList
-        RemoteFrame.BackgroundColor3 = remote.vulnerable and 
-            Color3.fromRGB(80, 30, 30) or Color3.fromRGB(50, 50, 50)
-        RemoteFrame.Size = UDim2.new(1, -10, 0, 100)
-
-        local NameLabel = Instance.new("TextLabel")
-        NameLabel.Parent = RemoteFrame
-        NameLabel.BackgroundTransparency = 1
-        NameLabel.Position = UDim2.new(0, 5, 0, 5)
-        NameLabel.Size = UDim2.new(0.7, 0, 0, 20)
-        NameLabel.Font = Enum.Font.SourceSans
-        NameLabel.Text = remote.instance.Name
-        NameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        NameLabel.TextSize = 16
-        NameLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-        local PathLabel = Instance.new("TextLabel")
-        PathLabel.Parent = RemoteFrame
-        PathLabel.BackgroundTransparency = 1
-        PathLabel.Position = UDim2.new(0, 5, 0, 25)
-        PathLabel.Size = UDim2.new(0.7, 0, 0, 20)
-        PathLabel.Font = Enum.Font.SourceSans
-        PathLabel.Text = remote.path
-        PathLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-        PathLabel.TextSize = 14
-        PathLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-        -- Buttons
-        local FireButton = Instance.new("TextButton")
-        FireButton.Parent = RemoteFrame
-        FireButton.Position = UDim2.new(0.75, 0, 0.1, 0)
-        FireButton.Size = UDim2.new(0.2, 0, 0.25, 0)
-        FireButton.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
-        FireButton.Text = "Fire"
-        FireButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        FireButton.TextSize = 14
-
-        local InvokeButton = Instance.new("TextButton")
-        InvokeButton.Parent = RemoteFrame
-        InvokeButton.Position = UDim2.new(0.75, 0, 0.4, 0)
-        InvokeButton.Size = UDim2.new(0.2, 0, 0.25, 0)
-        InvokeButton.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
-        InvokeButton.Text = "Invoke"
-        InvokeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        InvokeButton.TextSize = 14
-
-        local ExploitButton = Instance.new("TextButton")
-        ExploitButton.Parent = RemoteFrame
-        ExploitButton.Position = UDim2.new(0.75, 0, 0.7, 0)
-        ExploitButton.Size = UDim2.new(0.2, 0, 0.25, 0)
-        ExploitButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        ExploitButton.Text = "Exploit"
-        ExploitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        ExploitButton.TextSize = 14
-
-        -- Button Functions
-        FireButton.MouseButton1Click:Connect(function()
-            if remote.type == "RemoteEvent" then
-                remote.instance:FireServer()
-                showNotification("Fired " .. remote.instance.Name, 2)
-            end
-        end)
-
-        InvokeButton.MouseButton1Click:Connect(function()
-            if remote.type == "RemoteFunction" then
-                local success, result = pcall(function()
-                    return remote.instance:InvokeServer()
-                end)
-                if success then
-                    showNotification("Invoked " .. remote.instance.Name .. "\nResult: " .. tostring(result), 3)
-                else
-                    showNotification("Failed to invoke " .. remote.instance.Name, 2)
+                
+                if isVulnerable then
+                    table.insert(vulnerabilities, {
+                        remote = v,
+                        reason = vulnReason
+                    })
                 end
             end
-        end)
+        end
+        
+        if #vulnerabilities > 0 then
+            showNotification("Found " .. #vulnerabilities .. " potentially vulnerable remotes!", 5)
+        end
+        
+        return remotes
+    end
 
-        ExploitButton.MouseButton1Click:Connect(function()
-            showNotification("Attempting exploit on " .. remote.instance.Name, 2)
-            attemptExploit(remote)
-        end)
+    -- Advanced Exploit Testing Function
+    local function attemptExploit(remote)
+        local testValues = {
+            -- Basic Values
+            nil, false, true, 0, 1, -1, math.huge, -math.huge,
+            
+            -- Strings
+            "test", "' OR '1'='1", "; DROP TABLE Users--", "../../etc/passwd",
+            
+            -- Tables
+            {}, {1, 2, 3}, {["key"] = "value"},
+            
+            -- Game Objects
+            game.Players.LocalPlayer,
+            game.Players.LocalPlayer.Character,
+            workspace, game,
+            
+            -- Functions and Instances
+            function() end,
+            Instance.new("Part"),
+            
+            -- Special Values
+            Vector3.new(0, 0, 0),
+            CFrame.new(0, 0, 0),
+            
+            -- SQL Injection Attempts
+            "1' OR '1'='1",
+            "1; DROP TABLE Players--",
+            
+            -- Command Injection
+            "|ls",
+            "; rm -rf /",
+            
+            -- Buffer Overflow Test
+            string.rep("A", 10000),
+            
+            -- Special Characters
+            "\0", "\n", "\r", "\t", "\b", "\\",
+            
+            -- JSON Injection
+            '{"__proto__": {"admin": true}}',
+            
+            -- Remote Specific
+            {FireServer = true},
+            {InvokeServer = true}
+        }
 
-        if remote.vulnerable then
-            local VulnLabel = Instance.new("TextLabel")
-            VulnLabel.Parent = RemoteFrame
-            VulnLabel.BackgroundTransparency = 1
-            VulnLabel.Position = UDim2.new(0, 5, 0, 45)
-            VulnLabel.Size = UDim2.new(0.7, 0, 0, 40)
-            VulnLabel.Font = Enum.Font.SourceSans
-            VulnLabel.Text = "⚠️ Vulnerable: " .. remote.vulnReason
-            VulnLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
-            VulnLabel.TextSize = 14
-            VulnLabel.TextXAlignment = Enum.TextXAlignment.Left
-            VulnLabel.TextWrapped = true
+        for _, value in ipairs(testValues) do
+            task.spawn(function()
+                if remote.type == "RemoteEvent" then
+                    remote.instance:FireServer(value)
+                elseif remote.type == "RemoteFunction" then
+                    -- Try both FireServer and InvokeServer
+                    pcall(function() remote.instance:FireServer(value) end)
+                    pcall(function() remote.instance:InvokeServer(value) end)
+                end
+            end)
+            task.wait(0.1)
         end
     end
 
-    RemoteList.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
+    -- GUI Update Function
+    local function updateGUI()
+        for _, child in pairs(RemoteList:GetChildren()) do
+            if child:IsA("Frame") then
+                child:Destroy()
+            end
+        end
+
+        local remotes = scanRemotes()
+        for _, remote in pairs(remotes) do
+            local RemoteFrame = Instance.new("Frame")
+            RemoteFrame.Name = remote.instance.Name
+            RemoteFrame.Parent = RemoteList
+            RemoteFrame.BackgroundColor3 = remote.vulnerable and 
+                Color3.fromRGB(80, 30, 30) or Color3.fromRGB(50, 50, 50)
+            RemoteFrame.Size = UDim2.new(1, -10, 0, 100)
+
+            local NameLabel = Instance.new("TextLabel")
+            NameLabel.Parent = RemoteFrame
+            NameLabel.BackgroundTransparency = 1
+            NameLabel.Position = UDim2.new(0, 5, 0, 5)
+            NameLabel.Size = UDim2.new(0.7, 0, 0, 20)
+            NameLabel.Font = Enum.Font.SourceSans
+            NameLabel.Text = remote.instance.Name
+            NameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+            NameLabel.TextSize = 16
+            NameLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+            local PathLabel = Instance.new("TextLabel")
+            PathLabel.Parent = RemoteFrame
+            PathLabel.BackgroundTransparency = 1
+            PathLabel.Position = UDim2.new(0, 5, 0, 25)
+            PathLabel.Size = UDim2.new(0.7, 0, 0, 20)
+            PathLabel.Font = Enum.Font.SourceSans
+            PathLabel.Text = remote.path
+            PathLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+            PathLabel.TextSize = 14
+            PathLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+            -- Buttons
+            local FireButton = Instance.new("TextButton")
+            FireButton.Parent = RemoteFrame
+            FireButton.Position = UDim2.new(0.75, 0, 0.1, 0)
+            FireButton.Size = UDim2.new(0.2, 0, 0.25, 0)
+            FireButton.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+            FireButton.Text = "Fire"
+            FireButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            FireButton.TextSize = 14
+
+            local InvokeButton = Instance.new("TextButton")
+            InvokeButton.Parent = RemoteFrame
+            InvokeButton.Position = UDim2.new(0.75, 0, 0.4, 0)
+            InvokeButton.Size = UDim2.new(0.2, 0, 0.25, 0)
+            InvokeButton.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
+            InvokeButton.Text = "Invoke"
+            InvokeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            InvokeButton.TextSize = 14
+
+            local ExploitButton = Instance.new("TextButton")
+            ExploitButton.Parent = RemoteFrame
+            ExploitButton.Position = UDim2.new(0.75, 0, 0.7, 0)
+            ExploitButton.Size = UDim2.new(0.2, 0, 0.25, 0)
+            ExploitButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            ExploitButton.Text = "Exploit"
+            ExploitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ExploitButton.TextSize = 14
+
+            -- Button Functions
+            FireButton.MouseButton1Click:Connect(function()
+                if remote.type == "RemoteEvent" then
+                    remote.instance:FireServer()
+                    showNotification("Fired " .. remote.instance.Name, 2)
+                end
+            end)
+
+            InvokeButton.MouseButton1Click:Connect(function()
+                if remote.type == "RemoteFunction" then
+                    local success, result = pcall(function()
+                        return remote.instance:InvokeServer()
+                    end)
+                    if success then
+                        showNotification("Invoked " .. remote.instance.Name .. "\nResult: " .. tostring(result), 3)
+                    else
+                        showNotification("Failed to invoke " .. remote.instance.Name, 2)
+                    end
+                end
+            end)
+
+            ExploitButton.MouseButton1Click:Connect(function()
+                showNotification("Attempting exploit on " .. remote.instance.Name, 2)
+                attemptExploit(remote)
+            end)
+
+            if remote.vulnerable then
+                local VulnLabel = Instance.new("TextLabel")
+                VulnLabel.Parent = RemoteFrame
+                VulnLabel.BackgroundTransparency = 1
+                VulnLabel.Position = UDim2.new(0, 5, 0, 45)
+                VulnLabel.Size = UDim2.new(0.7, 0, 0, 40)
+                VulnLabel.Font = Enum.Font.SourceSans
+                VulnLabel.Text = "⚠️ Vulnerable: " .. remote.vulnReason
+                VulnLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+                VulnLabel.TextSize = 14
+                VulnLabel.TextXAlignment = Enum.TextXAlignment.Left
+                VulnLabel.TextWrapped = true
+            end
+        end
+
+        RemoteList.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
+    end
+
+    -- Connect buttons
+    RefreshButton.MouseButton1Click:Connect(updateGUI)
+    CloseButton.MouseButton1Click:Connect(function()
+        ScreenGui:Destroy()
+        ToggleButton.Text = "Open Exploit"
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    end)
+
+    -- Initial load
+    updateGUI()
+    showNotification("V0C0N1337 HERE", 3)
+
+    return ScreenGui
 end
 
--- Refresh Button
-RefreshButton.Name = "RefreshButton"
-RefreshButton.Parent = MainFrame
-RefreshButton.Position = UDim2.new(0.85, 0, 0.02, 0)
-RefreshButton.Size = UDim2.new(0.13, 0, 0, 25)
-RefreshButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-RefreshButton.Text = "Refresh"
-RefreshButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-RefreshButton.TextSize = 14
+-- Variable to store the main GUI
+local MainGui = nil
 
-RefreshButton.MouseButton1Click:Connect(updateGUI)
+-- Toggle function
+local function toggleGui()
+    if MainGui then
+        MainGui:Destroy()
+        MainGui = nil
+        ToggleButton.Text = "Open Exploit"
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    else
+        MainGui = createMainGui()
+        ToggleButton.Text = "Close Exploit"
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    end
+end
 
--- Close Button
-local CloseButton = Instance.new("TextButton")
-CloseButton.Name = "CloseButton"
-CloseButton.Parent = MainFrame
-CloseButton.Position = UDim2.new(0.95, 0, 0, 0)
-CloseButton.Size = UDim2.new(0.05, 0, 0, 20)
-CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-CloseButton.Text = "X"
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseButton.TextSize = 14
-
-CloseButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
-end)
+-- Connect the toggle function to the button
+ToggleButton.MouseButton1Click:Connect(toggleGui)
 
 -- Remote Spy Feature
 local function hookRemote(remote)
@@ -330,7 +373,13 @@ local function hookRemote(remote)
             local args = {...}
             print("RemoteEvent Fired:", remote:GetFullName())
             print("Arguments:", unpack(args))
-            showNotification("Remote Fired: " .. remote.Name, 1)
+            if MainGui then
+                MainGui.NotificationFrame.NotificationText.Text = "Remote Fired: " .. remote.Name
+                MainGui.NotificationFrame.Visible = true
+                task.delay(1, function()
+                    MainGui.NotificationFrame.Visible = false
+                end)
+            end
             return oldFireServer(self, ...)
         end)
     elseif remote:IsA("RemoteFunction") then
@@ -339,7 +388,13 @@ local function hookRemote(remote)
             local args = {...}
             print("RemoteFunction Called:", remote:GetFullName())
             print("Arguments:", unpack(args))
-            showNotification("Remote Invoked: " .. remote.Name, 1)
+            if MainGui then
+                MainGui.NotificationFrame.NotificationText.Text = "Remote Invoked: " .. remote.Name
+                MainGui.NotificationFrame.Visible = true
+                task.delay(1, function()
+                    MainGui.NotificationFrame.Visible = false
+                end)
+            end
             return oldInvokeServer(self, ...)
         end)
     end
@@ -356,10 +411,14 @@ end
 game.DescendantAdded:Connect(function(desc)
     if desc:IsA("RemoteEvent") or desc:IsA("RemoteFunction") then
         hookRemote(desc)
-        showNotification("New Remote Added: " .. desc.Name, 3)
+        if MainGui then
+            MainGui.NotificationFrame.NotificationText.Text = "New Remote Added: " .. desc.Name
+            MainGui.NotificationFrame.Visible = true
+            task.delay(3, function()
+                MainGui.NotificationFrame.Visible = false
+            end)
+        end
     end
 end)
 
--- Initial load
-updateGUI()
-showNotification("V0C0N1337 HERE", 3)
+print("Remote Exploit GUI loaded. Click the button to toggle.")
