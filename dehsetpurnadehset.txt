@@ -1,6 +1,6 @@
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/v0c0n1337/scripts/refs/heads/main/Protected_1795247053435213.lua.txt"))()
-wait(15)
+wait(5)
 
 
 
