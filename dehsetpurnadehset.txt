@@ -14,14 +14,14 @@ wait(15)
 _G.LengthOfFlinging = 130
 _G.ChatMessage = 'Enjoy the 2 minutes of flinging nerds🤣   | V0C0N1337 for whitelist'
 _G.Whitelist = {
-    508960114,
-    2053921341,
+    2340510911,
     1,
     1,
-    3528728861,
-    104532904,
-    2270834679,
-    50913770,
+    1,
+    1,
+    1,
+    1,
+    1,
     1,
     1,
     1,
