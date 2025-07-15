@@ -1,0 +1,73 @@
+local function l33tObf(s)local t=''for i=1,#s do t=t..string.char(string.byte(s,i))end return t end
+local _V0C0N1337_0=game
+local _V0C0N1337_1=_V0C0N1337_0:GetService(l33tObf('\80\108\97\121\101\114\115')).LocalPlayer
+local _V0C0N1337_2=_V0C0N1337_1.Character or _V0C0N1337_1.CharacterAdded:Wait()
+local _V0C0N1337_3=_V0C0N1337_2:FindFirstChild(l33tObf('\72\117\109\97\110\111\105\100')) or _V0C0N1337_2:WaitForChild(l33tObf('\72\117\109\97\110\111\105\100'))
+local _V0C0N1337_4=_V0C0N1337_3:FindFirstChildOfClass(l33tObf('\65\110\105\109\97\116\111\114')) or _V0C0N1337_3:WaitForChild(l33tObf('\65\110\105\109\97\116\111\114'))
+local _V0C0N1337_5=_V0C0N1337_1:FindFirstChild(l33tObf('\66\97\99\107\112\97\99\107')) or _V0C0N1337_1:WaitForChild(l33tObf('\66\97\99\107\112\97\99\107'))
+local function _V0C0N1337_rig()
+  return _V0C0N1337_3.RigType==Enum.HumanoidRigType.R15 and 'R15' or 'R6'
+end
+local function _V0C0N1337_notify(title,msg,dur)
+  pcall(function()
+    _V0C0N1337_0:GetService(l33tObf('\83\116\97\114\116\101\114\71\117\105')):SetCore(l33tObf('\83\101\110\100\78\111\116\105\102\105\99\97\116\105\111\110'),
+      {Title=title,Text=msg or'',Duration=dur})
+  end)
+end
+local _V0C0N1337_ws=workspace
+if _V0C0N1337_ws:FindFirstChild(l33tObf('\86\48\67\48\78\49\51\51\55\95\65\110\105\109')) then
+  _V0C0N1337_ws:FindFirstChild(l33tObf('\86\48\67\48\78\49\51\51\55\95\65\110\105\109')):Destroy()
+end
+local _V0C0N1337_anim=Instance.new(l33tObf('\65\110\105\109\97\116\105\111\110'))
+_V0C0N1337_anim.Name=l33tObf('\86\48\67\48\78\49\51\51\55\95\65\110\105\109')
+_V0C0N1337_anim.Parent=_V0C0N1337_ws
+local _V0C0N1337_idR15=l33tObf('\114\98\120\97\115\115\101\116\105\100\58\47\47\54\57\56\50\53\49\54\53\51')
+local _V0C0N1337_idR6=l33tObf('\114\98\120\97\115\115\101\116\105\100\58\47\47\55\50\48\52\50\48\50\52')
+_V0C0N1337_anim.AnimationId=_V0C0N1337_rig()=='R15' and _V0C0N1337_idR15 or _V0C0N1337_idR6
+local _V0C0N1337_tool=Instance.new(l33tObf('\84\111\111\108'))
+_V0C0N1337_tool.Name=l33tObf('\86\48\67\48\78\49\51\51\55\51\49')
+_V0C0N1337_tool.RequiresHandle=false
+_V0C0N1337_tool.Parent=_V0C0N1337_5
+local _V0C0N1337_doing=false
+local _V0C0N1337_track=nil
+_V0C0N1337_notify(
+  l33tObf('\86\48\67\48\78\49\51\51\55\32\97\109\105\110\105\32\100\101\108\101\114'),
+  l33tObf('\51\49\32\99\101\107\109\101\32\98\97\115\97\114\105\108\105'),
+  20
+)
+_V0C0N1337_tool.Equipped:Connect(function()
+  _V0C0N1337_doing=true
+  while _V0C0N1337_doing do
+    if not _V0C0N1337_track then
+      _V0C0N1337_track=_V0C0N1337_4:LoadAnimation(_V0C0N1337_anim)
+    end
+    _V0C0N1337_track:Play()
+    _V0C0N1337_track:AdjustSpeed(0.7)
+    _V0C0N1337_track.TimePosition=0.6
+    task.wait(0.1)
+    while _V0C0N1337_doing and _V0C0N1337_track and _V0C0N1337_track.TimePosition<0.7 do
+      task.wait(0.05)
+    end
+    if _V0C0N1337_track then
+      _V0C0N1337_track:Stop()
+      _V0C0N1337_track:Destroy()
+      _V0C0N1337_track=nil
+    end
+  end
+end)
+_V0C0N1337_tool.Unequipped:Connect(function()
+  _V0C0N1337_doing=false
+  if _V0C0N1337_track then
+    _V0C0N1337_track:Stop()
+    _V0C0N1337_track:Destroy()
+    _V0C0N1337_track=nil
+  end
+end)
+_V0C0N1337_3.Died:Connect(function()
+  _V0C0N1337_doing=false
+  if _V0C0N1337_track then
+    _V0C0N1337_track:Stop()
+    _V0C0N1337_track:Destroy()
+    _V0C0N1337_track=nil
+  end
+end)
