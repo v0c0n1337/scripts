@@ -1,7 +1,4 @@
--- Fucked By Kohler Hub
--- Made By Deobfuscator tarantulagt#0000 
--- fucked in 0.098232382seconds easyy ezzz.
-
+-- Sydear ekibi tam bir enayi skid
 local var1 = game.GetService
 local ReplicatedStorage1 = game:GetService("ReplicatedStorage")
 local var2 = game.GetService
