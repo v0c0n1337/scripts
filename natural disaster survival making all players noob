@@ -1,3 +1,6 @@
+
+-- Made by V0C0N1337 open source for my little skids 
+
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
