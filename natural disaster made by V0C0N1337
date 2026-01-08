@@ -1,0 +1,114 @@
+
+-- Made by V0C0N1337 this script op making everyone noob after everyone die + maybe crashing servers LOL 
+
+
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local Workspace = game:GetService("Workspace")
+local player = Players.LocalPlayer
+
+
+local pp = CoreGui:FindFirstChild("PurchasePromptApp")
+if pp then pp:Destroy() end
+
+
+local pg = player:FindFirstChild("PlayerGui")
+if pg then
+    local mg = pg:FindFirstChild("MainGui")
+    if mg and mg:FindFirstChild("HoverSound") then
+        mg.HoverSound.Volume = 0
+    end
+end
+
+
+local function massiveAnimatedCredit()
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "V0C0N1337"
+    gui.ResetOnSpawn = false
+    gui.IgnoreGuiInset = true
+    gui.Parent = pg
+
+    local bg = Instance.new("Frame")
+    bg.Size = UDim2.new(1,0,1,0)
+    bg.Position = UDim2.new(0,0,0,0)
+    bg.BackgroundColor3 = Color3.fromRGB(10,10,30)
+    bg.BackgroundTransparency = 1
+    bg.Parent = gui
+
+    local txt = Instance.new("TextLabel")
+    txt.Size = UDim2.new(1,0,1,0)
+    txt.Position = UDim2.new(0,0,0,0)
+    txt.BackgroundTransparency = 1
+    txt.Text = "V0C0N1337 best fe bypasser"
+    txt.Font = Enum.Font.GothamBlack
+    txt.TextSize = 100
+    txt.TextColor3 = Color3.fromRGB(0,255,255)
+    txt.TextStrokeTransparency = 0.1
+    txt.TextStrokeColor3 = Color3.fromRGB(0,0,0)
+    txt.TextTransparency = 1
+    txt.TextScaled = true
+    txt.Parent = bg
+
+    
+    for i=1,14 do
+        local star = Instance.new("TextLabel")
+        star.Size = UDim2.new(0.05,0,0.05,0)
+        star.Position = UDim2.new(math.random(),0,math.random(),0)
+        star.BackgroundTransparency = 1
+        star.Text = "."
+        star.Font = Enum.Font.GothamBlack
+        star.TextSize = 80
+        star.TextColor3 = Color3.new(0,1,1)
+        star.TextTransparency = 1
+        star.Parent = bg
+        TweenService:Create(star, TweenInfo.new(2,Enum.EasingStyle.Sine,Enum.EasingDirection.Out,0,true), {TextTransparency = 0.2}):Play()
+    end
+
+    
+    TweenService:Create(bg, TweenInfo.new(1.2, Enum.EasingStyle.Quart), {BackgroundTransparency = 0.35}):Play()
+    TweenService:Create(txt, TweenInfo.new(1.2, Enum.EasingStyle.Quart), {TextTransparency = 0}):Play()
+    task.wait(2.5)
+    TweenService:Create(txt, TweenInfo.new(1.1), {TextTransparency = 1}):Play()
+    TweenService:Create(bg, TweenInfo.new(1.1), {BackgroundTransparency = 1}):Play()
+    task.wait(1.3)
+    gui:Destroy()
+end
+
+-- UNHOLY
+local function clickdetectorNuke()
+    local balloon = Workspace:FindFirstChild("BillboardBalloon")
+    local apple = Workspace:FindFirstChild("BillboardApple")
+    local balloonClick = balloon and balloon:FindFirstChild("Board") and balloon.Board:FindFirstChild("ClickDetector")
+    local appleClick = apple and apple:FindFirstChild("Board") and apple.Board:FindFirstChild("ClickDetector")
+
+    if balloonClick and appleClick then
+        for t = 1, 5 do
+            task.spawn(function()
+                for i = 1, 50000 do
+                    fireclickdetector(balloonClick)
+                    fireclickdetector(appleClick)
+                    if i % 50 == 0 then task.wait() end
+                end
+            end)
+        end
+    end
+
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if obj:IsA("ClickDetector") and obj ~= balloonClick and obj ~= appleClick then
+            task.spawn(function()
+                for i = 1, 25000 do
+                    fireclickdetector(obj)
+                    if i % 50 == 0 then task.wait() end
+                end
+            end)
+        end
+    end
+end
+
+
+massiveAnimatedCredit()
+clickdetectorNuke()
+task.wait(1)
+massiveAnimatedCredit()
