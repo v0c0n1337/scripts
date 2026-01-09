@@ -1,9 +1,7 @@
-
--- Made by V0C0N1337 open source for my little skids 
-
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
+local StarterGui = game:GetService("StarterGui")
 local player = Players.LocalPlayer
 
 pcall(function()
@@ -19,6 +17,14 @@ pcall(function()
             mg.HoverSound.Volume = 0
         end
     end
+end)
+
+pcall(function()
+    StarterGui:SetCore("SendNotification", {
+        Title = "Made by V0C0N1337",
+        Text = "script executed if players die look players LMAO",
+        Duration = 7
+    })
 end)
 
 local function clickBalloonAndApple(spamCount)
