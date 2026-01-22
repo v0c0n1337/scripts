@@ -1,4 +1,3 @@
-
 do
     local AdonisRem
     for _, v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
