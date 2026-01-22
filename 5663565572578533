@@ -1,0 +1,254 @@
+
+do
+    local AdonisRem
+    for _, v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+        if v:FindFirstChild("__FUNCTION") then
+            AdonisRem = v
+        end
+    end
+    if AdonisRem then
+        local BlankFunc = function() end
+        for _, v in pairs(getgc(true)) do
+            if typeof(v) == "table" and rawget(v, "indexInstance") then
+                setreadonly(v, false)
+                v[1] = BlankFunc
+                setreadonly(v, true)
+            end
+        end
+    end
+end
+
+local remotePaths = {
+    "ReplicatedStorage.TankGunsFolder.TurretRotateEvent",
+    "ReplicatedStorage.TankGunsFolder.Remotes.InflictTarget",
+    "ReplicatedStorage.TankGunsFolder.Remotes.PlayAudio",
+    "ReplicatedStorage.TankGunsFolder.Remotes.VisualizeBullet",
+    "ReplicatedStorage.TankGunsFolder.Remotes.VisualizeMuzzle",
+    "ReplicatedStorage.TankGunsFolder.Remotes.ShatterGlass",
+    "ReplicatedStorage.TankGunsFolder.Remotes.VisualizeHitEffect",
+    "ReplicatedStorage.TankStuff.Weapons.85mm Cannon.GunScript_Server.ChangeMagAndAmmo",
+    "ReplicatedStorage.TankStuff.Weapons.85mm Cannon.GunScript_Server.InflictTargetMelee",
+    "ReplicatedStorage.TankStuff.Weapons.30mm.GunScript_Server.ChangeMagAndAmmo",
+    "ReplicatedStorage.TankStuff.Weapons.30mm.GunScript_Server.InflictTargetMelee",
+    "ReplicatedStorage.TankStuff.Weapons.LMG.GunScript_Server.ChangeMagAndAmmo",
+    "ReplicatedStorage.TankStuff.Weapons.LMG.GunScript_Server.InflictTargetMelee",
+    "ReplicatedStorage.TankStuff.Weapons.PKT.GunScript_Server.ChangeMagAndAmmo",
+    "ReplicatedStorage.TankStuff.Weapons.PKT.GunScript_Server.InflictTargetMelee",
+    "ReplicatedStorage.TankStuff.Weapons.AT Rocket Launcher.GunScript_Server.ChangeMagAndAmmo",
+    "ReplicatedStorage.TankStuff.Weapons.AT Rocket Launcher.GunScript_Server.InflictTargetMelee",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.DriverSeat.Seat.GUIGiver.VehicleGui.GuiRemover.RemoveEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.SmokeLauncher.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.HMGAmmo.ReloadEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.InteriorLights.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.HeadLights.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.Radio.Main.MUSIC",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.Radio.Main.UpdateVP",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.EngineBay.MainEngine.Horn.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Structure.EngineBay.MainEngine.HitEngine",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.GunnerSeat.Seat.GUIGiver.VehicleGui.GuiRemover.RemoveEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.SmokeLauncher6.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.FlareLauncher.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.HMGAmmo.ReloadEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.SmokeLauncher.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.SmokeLauncher4.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.SmokeLauncher2.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.SmokeLauncher5.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.SmokeLauncher3.RemoteEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Structure.LMGAmmo.ReloadEvent",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Cannon.CannonFired",
+    "ReplicatedStorage.TankStuff.Tank.Chassi.Turret.Cannon.RefillRack",
+    "ReplicatedStorage.AntiCheatAlert",
+    "ReplicatedStorage.Hitmarker",
+    "ReplicatedStorage.arrest.Functions.BoloData",
+    "ReplicatedStorage.arrest.Functions.mdtFunction",
+    "ReplicatedStorage.arrest.Events.releaseEvent",
+    "ReplicatedStorage.arrest.Events.arrestEvent",
+    "ReplicatedStorage.arrest.Events.mdtEvent",
+    "ReplicatedStorage.wearArmor",
+    "ReplicatedStorage.sendMsg",
+    "ReplicatedStorage.createNewMsg",
+    "ReplicatedStorage.UpdateWanted",
+    "ReplicatedStorage.UpdateAppearance",
+    "ReplicatedStorage.ToolEvent",
+    "ReplicatedStorage.SneezeS",
+    "ReplicatedStorage.ServerSubtitleEvent",
+    "ReplicatedStorage.SendNotificationEvent",
+    "ReplicatedStorage.SellFish",
+    "ReplicatedStorage.RecvKill",
+    "ReplicatedStorage.ReaperDependencies.Events.EnterDrone",
+    "ReplicatedStorage.ReaperDependencies.Events.Fly",
+    "ReplicatedStorage.ReaperDependencies.Events.PlaceDrone",
+    "ReplicatedStorage.ReaperDependencies.Events.Case",
+    "ReplicatedStorage.ReaperDependencies.Events.Movement",
+    "ReplicatedStorage.ReaperDependencies.Events.Enable",
+    "ReplicatedStorage.ReaperDependencies.Events.Disable",
+    "ReplicatedStorage.PoliceDeathGuiHandler",
+    "ReplicatedStorage.NametagEvent",
+    "ReplicatedStorage.MyRemoteEvent",
+    "ReplicatedStorage.MoneyGiver2",
+    "ReplicatedStorage.MOVE_TO_REPLICATEDSTORAGE_BUBBLEEVENT",
+    "ReplicatedStorage.GiveOrder",
+    "ReplicatedStorage.FishAction",
+    "ReplicatedStorage.DropCash",
+    "ReplicatedStorage.Crew",
+    "ReplicatedStorage.ClientSubtitleEvent",
+    "ReplicatedStorage.BuyRod",
+    "ReplicatedStorage.BleedAnimEvent",
+    "ReplicatedStorage.BackpackCoreGuiEvent",
+    "ReplicatedStorage.ActivateCCTVSystem",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.kubacg.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.kubacg.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.kubacg.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.kubacg.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.kubacg.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt07.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt07.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt07.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt07.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt07.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt09.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt09.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt09.Tuner.Plugins.Backfire [FE+].Backfire_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt09.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt09.Tuner.Plugins.EPICLIGHTS_V4.LIGHTS",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.mt09.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.ns.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.ns.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.ns.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.ns.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.ns.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r25.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r25.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r25.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r25.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r25.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r7.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r7.Tuner.Plugins.Backfire [FE+].Backfire_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r7.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r7.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r7.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.r7.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinarar.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinarar.Tuner.Plugins.Backfire [FE+].Backfire_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinarar.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinarar.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinarar.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinarar.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinrr.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinrr.Tuner.Plugins.Backfire [FE+].Backfire_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinrr.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinrr.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinrr.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.sbinrr.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.cup.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.cup.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.cup.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.cup.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.cup.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Yamaha Yzf R7.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Yamaha Yzf R7.Tuner.Plugins.Backfire [FE+].Backfire_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Yamaha Yzf R7.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Yamaha Yzf R7.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Yamaha Yzf R7.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Yamaha Yzf R7.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Harley Davidson.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Harley Davidson.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Harley Davidson.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Harley Davidson.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Harley Davidson.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Kawasaki H2R.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Kawasaki H2R.Tuner.Plugins.Backfire [FE+].Backfire_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Kawasaki H2R.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Kawasaki H2R.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Kawasaki H2R.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Sivil.vehicles.Kawasaki H2R.DriveSeat.Song.SongEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Asayiş.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Asayiş.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Asayiş.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Asayiş.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Egea Asayiş.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Egea Asayiş.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Egea Asayiş.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Egea Asayiş.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Asayiş.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Asayiş.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Asayiş.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Asayiş.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Mercedes Vito Maybach.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Mercedes Vito Maybach.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Mercedes Vito Maybach.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Mercedes Vito Maybach.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Narko.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Narko.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Narko.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Fiat Doblo Narko.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Narko.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Narko.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Narko.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Megane Narko.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.R1200 Yunus Polis.Tuner.Plugins.Kickstand.Kickstand",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.R1200 Yunus Polis.Tuner.Plugins.AC6_Sounds.AC6_Sound",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.R1200 Yunus Polis.Tuner.Plugins.Anims.Anims",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.R1200 Yunus Polis.Tuner.Plugins.EpicLights_V3BETA2.LightEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.2021 Chevrolet tahoe.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.2021 Chevrolet tahoe.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.2021 Chevrolet tahoe.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.2021 Chevrolet tahoe.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.Bofors.Cupola.Ammo.ReloadEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.Bofors.Cupola.CommSeat.GUIGiver.VehicleGui.GuiRemover.RemoveEvent",
+    "ReplicatedStorage.spawner.dealershipsSetup.Polis.vehicles.Otokar Kobra.Bofors.CommMG.Yes",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Kamaz 4310 Askeri Kamyon.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Kamaz 4310 Askeri Kamyon.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Kamaz 4310 Askeri Kamyon.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Kamaz 4310 Askeri Kamyon.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap Kapalı.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap Kapalı.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap Kapalı.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Asayiş Pikap Kapalı.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Jandarma Mobil Karakolu.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Jandarma Mobil Karakolu.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Jandarma Mobil Karakolu.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Jandarma Mobil Karakolu.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Trafik Pikap.A-Chassis Tune.Plugins.AC6_Brake_Whistle.Brakeoverheat",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Trafik Pikap.A-Chassis Tune.Plugins.AC6_EngineSound.SoundUpdate"
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Trafik Pikap.A-Chassis Tune.Plugins.Start.FE_Startup",
+    "ReplicatedStorage.spawner.dealershipsSetup.Jandarma.vehicles.Isuzu Jandarma Trafik Pikap.A-Chassis Tune.Plugins.Lights [FE+].Lights_FE"
+}
+
+local function getRemote(path)
+    local obj = game
+    for s in string.gmatch(path, "[^%.]+") do
+        obj = obj:FindFirstChild(s)
+        if not obj then break end
+    end
+    return obj
+end
+
+for _, path in ipairs(remotePaths) do
+    local remote = getRemote(path)
+    if remote then
+        if remote:IsA("RemoteFunction") then
+            pcall(function()
+                remote.OnClientInvoke = function() return end
+            end)
+            pcall(function()
+                remote:InvokeServer("babanizgeldi")
+            end)
+        elseif remote:IsA("RemoteEvent") then
+            pcall(function()
+                remote.OnClientEvent:Connect(function() return end)
+            end)
+            pcall(function()
+                remote:FireServer("V0C0N1337baban")
+            end)
+        end
+    end
+end
